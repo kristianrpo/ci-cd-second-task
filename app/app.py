@@ -1,4 +1,11 @@
 # app/app.py
+"""
+Main application file for the Flask web application.
+
+This module initializes the Flask app, defines the main routes,
+and serves as the entry point to run the development server.
+
+"""
 from flask import Flask, render_template, request
 from .calculadora import sumar, restar, multiplicar, dividir
 
@@ -7,6 +14,16 @@ app = Flask(__name__)
 
 @app.route("/", methods=["GET", "POST"])
 def index():
+    """
+    Handle the root route of the calculator application.
+
+    Supports both GET (to display the form) and POST (to process calculations).
+    Retrieves two numbers and an operation from the form, performs the
+    requested arithmetic calculation, and renders the result.
+
+    Returns:
+        str: Rendered HTML template (index.html) containing the calculation result.
+    """
     resultado = None
     if request.method == "POST":
         try:
@@ -33,4 +50,4 @@ def index():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000, host="0.0.0.0")  # Quita debug=True para producción
+    app.run(debug=True, port=5000, host="0.0.0.0")
