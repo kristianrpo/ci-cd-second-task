@@ -3,6 +3,7 @@ Calculator module providing basic arithmetic operations.
 Includes functions for addition, subtraction, multiplication, and division.
 """
 
+
 def sumar(a, b):
     """
     Add two numbers.

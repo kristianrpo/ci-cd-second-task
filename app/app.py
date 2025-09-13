@@ -22,7 +22,7 @@ def index():
     requested arithmetic calculation, and renders the result.
 
     Returns:
-        str: Rendered HTML template (index.html) containing the calculation result.
+        str: Rendered HTML template (index.html).
     """
     resultado = None
     if request.method == "POST":
