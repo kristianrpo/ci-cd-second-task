@@ -9,6 +9,7 @@ and serves as the entry point to run the development server.
 from flask import Flask, render_template, request
 from .calculadora import sumar, restar, multiplicar, dividir
 import os
+
 app = Flask(__name__)
 
 
@@ -74,9 +75,11 @@ def calcular():
 
     return render_template("index.html", resultado=resultado)
 
+
 @app.route("/health")
 def health():
     return "OK", 200
+
 
 if __name__ == "__main__":
     app_port = int(os.environ.get("PORT", 5000))
