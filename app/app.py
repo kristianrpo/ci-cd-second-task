@@ -12,39 +12,65 @@ from .calculadora import sumar, restar, multiplicar, dividir
 app = Flask(__name__)
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.get("/")
 def index():
     """
-    Handle the root route of the calculator application.
+    Display the calculator form (safe HTTP method).
 
-    Supports both GET (to display the form) and POST (to process calculations).
-    Retrieves two numbers and an operation from the form, performs the
-    requested arithmetic calculation, and renders the result.
+    This route responds only to GET requests and is considered safe,
+    as it does not alter the state of the application. It simply
+    renders the calculator form without performing any calculation.
 
     Returns:
-        str: Rendered HTML template (index.html).
+        str: Rendered HTML template (`index.html`) with no result.
+    """
+    return render_template("index.html", resultado=None)
+
+
+@app.post("/calcular")
+def calcular():
+    """
+    Process arithmetic calculations.
+
+    This route handles POST requests and is considered unsafe since
+    it processes user input and changes the application state by producing
+    a calculated result. It retrieves two numbers and the chosen operation
+    from the request form, executes the calculation, and renders the template
+    with the computed result.
+
+    Supported operations:
+        - sumar
+        - restar
+        - multiplicar
+        - dividir
+
+    Exception Handling:
+        - ValueError: Raised if input values are not valid numbers.
+        - ZeroDivisionError: Raised if division by zero is attempted.
+
+    Returns:
+        str: Rendered HTML template (`index.html`).
     """
     resultado = None
-    if request.method == "POST":
-        try:
-            num1 = float(request.form["num1"])
-            num2 = float(request.form["num2"])
-            operacion = request.form["operacion"]
+    try:
+        num1 = float(request.form["num1"])
+        num2 = float(request.form["num2"])
+        operacion = request.form["operacion"]
 
-            if operacion == "sumar":
-                resultado = sumar(num1, num2)
-            elif operacion == "restar":
-                resultado = restar(num1, num2)
-            elif operacion == "multiplicar":
-                resultado = multiplicar(num1, num2)
-            elif operacion == "dividir":
-                resultado = dividir(num1, num2)
-            else:
-                resultado = "Operación no válida"
-        except ValueError:
-            resultado = "Error: Introduce números válidos"
-        except ZeroDivisionError:
-            resultado = "Error: No se puede dividir por cero"
+        if operacion == "sumar":
+            resultado = sumar(num1, num2)
+        elif operacion == "restar":
+            resultado = restar(num1, num2)
+        elif operacion == "multiplicar":
+            resultado = multiplicar(num1, num2)
+        elif operacion == "dividir":
+            resultado = dividir(num1, num2)
+        else:
+            resultado = "Operación no válida"
+    except ValueError:
+        resultado = "Error: Introduce números válidos"
+    except ZeroDivisionError:
+        resultado = "Error: No se puede dividir por cero"
 
     return render_template("index.html", resultado=resultado)
 
