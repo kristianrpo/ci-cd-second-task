@@ -6,9 +6,9 @@ This module initializes the Flask app, defines the main routes,
 and serves as the entry point to run the development server.
 
 """
+import os
 from flask import Flask, render_template, request
 from .calculadora import sumar, restar, multiplicar, dividir
-import os
 
 app = Flask(__name__)
 
@@ -78,6 +78,7 @@ def calcular():
 
 @app.route("/health")
 def health():  # pragma: no cover
+    """ Health check endpoint for deployment environments."""
     return "OK", 200  # pragma: no cover
 
 
