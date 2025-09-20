@@ -78,7 +78,7 @@ def calcular():
 
 @app.route("/health")
 def health():  # pragma: no cover
-    """ Health check endpoint for deployment environments."""
+    """Health check endpoint for deployment environments."""
     return "OK", 200  # pragma: no cover
 
 
