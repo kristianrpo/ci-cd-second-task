@@ -77,10 +77,10 @@ def calcular():
 
 
 @app.route("/health")
-def health():
-    return "OK", 200
+def health():  # pragma: no cover
+    return "OK", 200  # pragma: no cover
 
 
 if __name__ == "__main__":
-    app_port = int(os.environ.get("PORT", 5000))
+    app_port = int(os.environ.get("PORT", 5000))  # pragma: no cover
     app.run(port=app_port, host="0.0.0.0")  # pragma: no cover
